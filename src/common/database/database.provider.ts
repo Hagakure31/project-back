@@ -5,10 +5,10 @@ import { Puc_configuration_data } from '../entity/puc_configuration_data.entity'
 import { Referential_ecu_diagitems } from '../entity/referential_ecu_diagitems.entity';
 
 
-
+export const databaseDAOKey = 'SEQUELIZE';
 export const databaseProvider = [
   {
-    provide: 'SEQUELIZE',
+    provide: databaseDAOKey,
     useFactory: async (configService : ConfigService) => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
