@@ -44,8 +44,7 @@ export class Puc_configuration_data extends Model<Puc_configuration_data> {
 
   @Column
   option_mtc_scr: string;
- 
-  @PrimaryKey
+
   @Column
   config_diagitem: string;
 
@@ -61,7 +60,6 @@ export class Puc_configuration_data extends Model<Puc_configuration_data> {
   @Column
   option_valueread: string;
 
-  @PrimaryKey
   @Column
   option_valuewrite: string;
 
@@ -71,7 +69,6 @@ export class Puc_configuration_data extends Model<Puc_configuration_data> {
   @Column
   option_aftersales_flag: string;
 
-  @PrimaryKey
   @Column
   ecu_name: string;
 

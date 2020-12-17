@@ -10,7 +10,7 @@ export class ReferentialEcuDiagitemsControler {
   ) {}
 
   @Get()
-  getReferentialEcuDiagitems(): Promise<EcuDiagitemsWithPucConfigDataWithPart[]> {
+  getReferentialEcuDiagitems(): Promise<Referential_ecu_diagitems[]> {
     return this.referentialEcuDiagitemsService.getEcuDiagitemsWithPucConfigDataWithPart();
   }
 }
