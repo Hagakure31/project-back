@@ -9,6 +9,10 @@ export class Puc_configuration_data extends Model<Puc_configuration_data> {
   @Column
   option_frameread1: string;
 
+  @PrimaryKey
+  @Column
+  id: string;
+
   @Column
   option_maskwrite: string;
 
