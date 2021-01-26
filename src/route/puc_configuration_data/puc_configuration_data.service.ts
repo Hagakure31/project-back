@@ -32,16 +32,33 @@ export class PucConfigurationDataService {
       .then(response => response.map(data => data.config_diagitem));
   }
 
-  getConfigDiagitems(selectedEcu): Promise<string[]> {
+  getConfigDiagitems(selectedEcu: Record<string, unknown>): Promise<string[]> {
     return this.pucDao
       .findAll({
         attributes: [
           [Sequelize.literal('DISTINCT config_diagitem'), 'config_diagitem'],
         ],
         where: {
-          ecu_name: selectedEcu,
+          ecu_name: selectedEcu.ecu_name,
         },
       })
       .then(response => response.map(data => data.config_diagitem));
+  }
+
+  getOptionValuewrite(selectedParams: any): Promise<string[]> {
+    return this.pucDao
+      .findAll({
+        attributes: [
+          [
+            Sequelize.literal('DISTINCT option_valuewrite'),
+            'option_valuewrite',
+          ],
+        ],
+        where: {
+          ecu_name: selectedParams.ecu_name,
+          config_diagitem: selectedParams.config_diagitem,
+        },
+      })
+      .then(response => response.map(data => data.option_valuewrite));
   }
 }

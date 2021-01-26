@@ -18,13 +18,25 @@ export class PucConfigurationDataControler {
     return this.pucConfigurationDataService.getEcuNames();
   }
 
+  // @Get('config_diagitems')
+  // getAllConfigDiagitems(): Promise<string[]> {
+  //   return this.pucConfigurationDataService.getEcuNames();
+  // }
+
   @Get('config_diagitems')
-  getAllConfigDiagitems(): Promise<string[]> {
-    return this.pucConfigurationDataService.getEcuNames();
+  async getConfigDiagitems(@Query() query): Promise<string[]> {
+    console.log(query);
+    return this.pucConfigurationDataService.getConfigDiagitems(query);
   }
 
-  @Get('config_diagitems/:ecu_name')
-  getConfigDiagitems(@Param('ecu_name') ecu_name): Promise<string[]> {
-    return this.pucConfigurationDataService.getConfigDiagitems(ecu_name);
+  @Get('option_valuewrite')
+  async getOptionValuewrite(@Query() query): Promise<string[]> {
+    console.log(query);
+    return this.pucConfigurationDataService.getOptionValuewrite(query);
   }
+
+  // @Get('config_diagitems/:ecu_name')
+  // getConfigDiagitems(@Param('ecu_name') ecu_name): Promise<string[]> {
+  //   return this.pucConfigurationDataService.getConfigDiagitems(ecu_name);
+  // }
 }
