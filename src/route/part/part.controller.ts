@@ -1,15 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { Part } from 'src/common/entity/part.entity';
 import { PartService } from './part.service';
 
-
-@Controller('part')
+@Controller('parts')
 export class PartController {
-  constructor(private readonly partService: PartService ) {}
+  constructor(private readonly partService: PartService) {}
 
   @Get()
-  getPart(): Promise<Part[]> {
-      return this.partService.getPart();
-    
+  getParts(): Promise<Part[]> {
+    return this.partService.getParts();
+  }
+
+  @Get('parts_nr')
+  getEcuNames(): Promise<string[]> {
+    return this.partService.getRoyaltyPartNumbers();
+  }
+
+  @Get('part_descriptions')
+  async getPartDescriptions(@Query() query): Promise<any> {
+    const description = await this.partService.getPartDescriptions(query);
+    return { descriptionFr: description[0], descriptionEn: description[1] };
   }
 }

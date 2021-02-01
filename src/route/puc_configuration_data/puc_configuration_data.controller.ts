@@ -1,4 +1,5 @@
 import { Controller, Get, Param, Query, Req } from '@nestjs/common';
+import { get } from 'http';
 import { Puc_configuration_data } from 'src/common/entity/puc_configuration_data.entity';
 import { PucConfigurationDataService } from './puc_configuration_data.service';
 
@@ -33,6 +34,14 @@ export class PucConfigurationDataControler {
   async getOptionValuewrite(@Query() query): Promise<string[]> {
     console.log(query);
     return this.pucConfigurationDataService.getOptionValuewrite(query);
+  }
+
+  @Get('option_text')
+  async getOptionText(@Query() query): Promise<any> {
+    const selectedOptionText = await this.pucConfigurationDataService.getOptionText(
+      query,
+    );
+    return { selectedOptionText: selectedOptionText };
   }
 
   // @Get('config_diagitems/:ecu_name')

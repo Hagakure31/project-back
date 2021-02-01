@@ -61,4 +61,19 @@ export class PucConfigurationDataService {
       })
       .then(response => response.map(data => data.option_valuewrite));
   }
+
+  getOptionText(selectedParams: any): Promise<string[]> {
+    return this.pucDao
+      .findAll({
+        attributes: [
+          [Sequelize.literal('DISTINCT option_text'), 'option_text'],
+        ],
+        where: {
+          ecu_name: selectedParams.ecu_name,
+          config_diagitem: selectedParams.config_diagitem,
+          option_valuewrite: selectedParams.option_valuewrite,
+        },
+      })
+      .then(response => response.map(data => data.option_text));
+  }
 }
