@@ -76,4 +76,16 @@ export class PucConfigurationDataService {
       })
       .then(response => response.map(data => data.option_text));
   }
+
+  getPucId(selectedParams): Promise<string> {
+    return this.pucDao
+      .findOne({
+        where: {
+          ecu_name: selectedParams.ecu_name,
+          config_diagitem: selectedParams.config_diagitem,
+          option_valuewrite: selectedParams.option_valuewrite,
+        },
+      })
+      .then(response => response.id);
+  }
 }

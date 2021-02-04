@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Referential_ecu_diagitems } from 'src/common/entity/referential_ecu_diagitems.entity';
 import { EcuDiagitemsWithPucConfigDataWithPart } from 'src/model/EcuDiagitemsWithPucConfigDataWithPart.model';
 import { ReferentialEcuDiagitemsService } from './referential_ecu_diagitems.service';
@@ -12,5 +12,13 @@ export class ReferentialEcuDiagitemsControler {
   @Get()
   getReferentialEcuDiagitems(): Promise<Referential_ecu_diagitems[]> {
     return this.referentialEcuDiagitemsService.getEcuDiagitemsWithPucConfigDataWithPart();
+  }
+
+  @Post()
+  async create(@Body() body): Promise<any> {
+    const thisPost = await this.referentialEcuDiagitemsService.create(body);
+    return this.referentialEcuDiagitemsService.getEcuDiagitemWithPucConfigDataWithPartById(
+      thisPost.id,
+    );
   }
 }

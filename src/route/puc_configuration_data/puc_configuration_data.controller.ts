@@ -48,4 +48,12 @@ export class PucConfigurationDataControler {
   // getConfigDiagitems(@Param('ecu_name') ecu_name): Promise<string[]> {
   //   return this.pucConfigurationDataService.getConfigDiagitems(ecu_name);
   // }
+
+  @Get('id')
+  async getPucId(@Query() query): Promise<any> {
+    const selectedPucId = await this.pucConfigurationDataService.getPucId(
+      query,
+    );
+    return { selectedPucId: selectedPucId };
+  }
 }
