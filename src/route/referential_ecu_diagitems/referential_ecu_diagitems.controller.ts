@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Referential_ecu_diagitems } from 'src/common/entity/referential_ecu_diagitems.entity';
-import { EcuDiagitemsWithPucConfigDataWithPart } from 'src/model/EcuDiagitemsWithPucConfigDataWithPart.model';
+import { Referential_ecu_diagitems } from '../../common/entity/referential_ecu_diagitems.entity';
 import { ReferentialEcuDiagitemsService } from './referential_ecu_diagitems.service';
 
 @Controller('referential_ecu_diagitems')

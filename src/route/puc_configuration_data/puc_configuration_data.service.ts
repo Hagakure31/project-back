@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
 
-import { Puc_configuration_data } from 'src/common/entity/puc_configuration_data.entity';
-import { pucDaoKey } from 'src/common/entity/puc_configuration_data.provider';
+import { Puc_configuration_data } from '../../common/entity/puc_configuration_data.entity';
+import { pucDaoKey } from '../../common/entity/puc_configuration_data.provider';
 
 @Injectable()
 export class PucConfigurationDataService {

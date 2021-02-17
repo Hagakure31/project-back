@@ -1,12 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Sequelize } from 'sequelize';
-import { databaseDAOKey } from 'src/common/database/database.provider';
-import { Part } from 'src/common/entity/part.entity';
-import { Puc_configuration_data } from 'src/common/entity/puc_configuration_data.entity';
-import { pucDaoKey } from 'src/common/entity/puc_configuration_data.provider';
-import { Referential_ecu_diagitems } from 'src/common/entity/referential_ecu_diagitems.entity';
-import { referentialEcuDaoKey } from 'src/common/entity/referential_ecu_diagitems.provider';
-import { EcuDiagitemsWithPucConfigDataWithPart } from 'src/model/EcuDiagitemsWithPucConfigDataWithPart.model';
+import { databaseDAOKey } from '../../common/database/database.provider';
+import { Part } from '../../common/entity/part.entity';
+import { Puc_configuration_data } from '../../common/entity/puc_configuration_data.entity';
+import { Referential_ecu_diagitems } from '../../common/entity/referential_ecu_diagitems.entity';
+import { referentialEcuDaoKey } from '../../common/entity/referential_ecu_diagitems.provider';
 import { v4 as uuidv4 } from 'uuid';
 import { PucConfigurationDataService } from '../puc_configuration_data/puc_configuration_data.service';
 
@@ -21,7 +19,6 @@ export class ReferentialEcuDiagitemsService {
   ) {}
 
   async create(newEntry): Promise<any> {
-    console.log(newEntry);
     const selectedPucId = await this.pucConfigurationDataService.getPucId(
       newEntry,
     );

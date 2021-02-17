@@ -1,28 +1,22 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+
+import { AuthService } from '../../route/auth/auth.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private readonly configService: ConfigService){
-        
-  }
-  use(req: Request, res: Response, next: () => void) {
+  constructor(private readonly authService: AuthService) {}
+  async use(req: Request, res: Response, next: () => void) {
     try {
-      if (req.url == '/inscription' || req.url == '/login') {
-        next();
-        return;
-      }
-      
       const currentToken = req.cookies['access_token'];
-      const payload = jwt.verify(currentToken, this.configService.get<string>('JWT_SECRET'));
+      const payload = await this.authService.verify(currentToken);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       req.auth = payload;
       next();
     } catch (error) {
       res.status(401).send('unauthorized');
     }
-    
   }
 }

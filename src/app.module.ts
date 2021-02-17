@@ -1,4 +1,5 @@
 import {
+  Global,
   MiddlewareConsumer,
   Module,
   NestModule,
@@ -18,9 +19,14 @@ import { PucConfigurationDataService } from './route/puc_configuration_data/puc_
 import { referentialEcuProvider } from './common/entity/referential_ecu_diagitems.provider';
 import { ReferentialEcuDiagitemsService } from './route/referential_ecu_diagitems/referential_ecu_diagitems.service';
 import { ReferentialEcuDiagitemsControler } from './route/referential_ecu_diagitems/referential_ecu_diagitems.controller';
-
+import { AuthModule } from './route/auth/auth.module';
+import { UsersModule } from './route/users/users.module';
+import { userDaoProvider } from './common/entity/user.provider';
+import { ConfigService } from '@nestjs/config';
+@Global()
 @Module({
-  imports: [ConfigModule.forRoot(), DatabaseModule],
+  exports: [...userDaoProvider],
+  imports: [ConfigModule.forRoot(), DatabaseModule, AuthModule, UsersModule],
   controllers: [
     AppController,
     PartController,
@@ -35,15 +41,20 @@ import { ReferentialEcuDiagitemsControler } from './route/referential_ecu_diagit
     PucConfigurationDataService,
     ...referentialEcuProvider,
     ReferentialEcuDiagitemsService,
+    ...userDaoProvider,
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    // consumer
-    //   .apply(AuthMiddleware)
-    //   .forRoutes({
-    //     path: '*',
-    //     method: RequestMethod.ALL
-    //   });
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: 'auth', method: RequestMethod.POST },
+        { path: 'register', method: RequestMethod.POST },
+      )
+      .forRoutes({
+        path: '*',
+        method: RequestMethod.ALL,
+      });
   }
 }
