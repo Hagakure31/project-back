@@ -12,9 +12,9 @@ export class UsersController {
     try {
       await this.usersService.createUser(body);
     } catch (err) {
-      console.log(err);
+      return { boolean: false, message: 'already existing email' };
     }
-    return { message: 'user created' };
+    return { boolean: true, message: 'user created' };
   }
 
   @Get('user')

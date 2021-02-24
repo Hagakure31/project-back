@@ -11,14 +11,21 @@ export class AuthController {
   async authenticate(@Body() body, @Res() res: Response): Promise<any> {
     try {
       const token = await this.authService.authenticate(body);
-      res.cookie('access_token', token).send({
-        success: true,
-      });
+      res
+        .cookie('access_token', token, {
+          httpOnly: true,
+          sameSite: 'lax',
+        })
+        .send({
+          success: true,
+        });
     } catch (err) {
       if (err instanceof UnauthenticatedException) {
-        res.status(401).json({ message: err.message });
+        res.status(401).json({ message: err.message, success: false });
       } else {
-        res.status(500).json({ message: 'internal server error' });
+        res
+          .status(500)
+          .json({ message: 'internal server error', success: false });
       }
     }
   }
